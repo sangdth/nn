@@ -37,12 +37,22 @@ pnpm dlx shadcn@latest init --defaults
 pnpm dlx shadcn@latest add --all
 
 # Create all necessary directories
-mkdir -p api/auth/[...all]
+mkdir -p app/api/auth/[...all]
 mkdir -p prisma
 
-cat > env.example <<EOL
+# Add prisma/generated to .gitignore
+echo "prisma/generated" >> .gitignore
+
+# Generate BETTER_AUTH_SECRET
+if command -v openssl >/dev/null 2>&1; then
+  BETTER_AUTH_SECRET=$(openssl rand -base64 32)
+else
+  BETTER_AUTH_SECRET="replacewithyourverysecretstring"
+fi
+
+cat > .env <<EOL
 BETTER_AUTH_TELEMETRY=0
-BETTER_AUTH_SECRET=$(openssl rand -base64 32)
+BETTER_AUTH_SECRET=$BETTER_AUTH_SECRET
 BETTER_AUTH_URL=http://localhost:3000
 
 DATABASE_URL=postgresql://postgres:password@localhost:5432/postgres
@@ -53,7 +63,6 @@ SMTP_PASS="topsecret"
 SMTP_HOST="127.0.0.1"
 SMTP_PORT="1025"
 EOL
-cp env.example .env
 
 # Prepare Prisma setup
 cat > lib/prisma.ts <<EOL
@@ -143,7 +152,7 @@ export const auth = betterAuth({
 });
 EOL
 
-cat > api/auth/[...all]/route.ts <<EOL
+cat > app/api/auth/[...all]/route.ts <<EOL
 import { toNextJsHandler } from 'better-auth/next-js';
 import { auth } from '@/auth';
 

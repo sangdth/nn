@@ -1,0 +1,17 @@
+# Cursor
+.cursor
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+

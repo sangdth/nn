@@ -1,44 +1,45 @@
-# new-next.sh Usage Guide
+# nn.sh
 
-A convenience script to quickly scaffold a new Next.js project with common dependencies and configurations.
+A convenience script to quickly scaffold a **n**ew **N**ext.js project with common dependencies and configurations.
 
 ## Prerequisites
 
 - Node.js installed
-- pnpm installed globally (`npm install -g pnpm`)
+- pnpm installed
+- openssl (optional, for generating a random Better Auth secret)
 
 ## Installation
 
 1. **Download or create the script**
 
-   Save the `new-next.sh` script to your desired location (e.g., `~/Projects/` or `~/scripts/`)
+   Save the `nn.sh` script to your desired location (e.g., `~/Projects/` or `~/scripts/`)
 
 2. **Make the script executable**
 
    ```bash
-   chmod +x new-next.sh
+   chmod +x nn.sh
    ```
 
 3. **(Optional) Add to PATH for global access**
 
    ```bash
    # Move to a directory in your PATH
-   sudo mv new-next.sh /usr/local/bin/new-next
+   sudo mv nn.sh /usr/local/bin/nn
    
    # Now you can run it from anywhere
-   new-next my-app
+   nn my-app
    ```
 
 ## Usage
 
 ```bash
-./new-next.sh <app-name>
+./nn.sh <app-name>
 ```
 
 ### Example
 
 ```bash
-./new-next.sh my-awesome-app
+./nn.sh my-awesome-app
 ```
 
 ## What This Script Does
@@ -251,6 +252,6 @@ To modify the default setup, edit the script:
 
 ## Troubleshooting
 
-- **Permission denied**: Run `chmod +x new-next.sh` to make the script executable
+- **Permission denied**: Run `chmod +x nn.sh` to make the script executable
 - **pnpm not found**: Install pnpm globally with `npm install -g pnpm`
 - **Script fails mid-way**: Check error messages and manually run remaining commands
