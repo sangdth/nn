@@ -70,9 +70,9 @@ EOL
 # Create Prisma instance
 cat > src/prisma/prisma.instance.ts <<EOL
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../prisma/generated/client';
+import { PrismaClient } from '../../prisma/generated/client';
 
-const connectionString = process.env.DATABASE_URL
+const connectionString = process.env.DATABASE_URL;
 
 if (!connectionString) {
   throw new Error('DATABASE_URL environment variable is not set');
@@ -82,7 +82,7 @@ const adapter = new PrismaPg({ connectionString });
 
 // We use this to omit some fields if we need to
 const prismaClientSingleton = () => {
-  return new PrismaClient({ adapter});
+  return new PrismaClient({ adapter });
 };
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
@@ -105,16 +105,19 @@ EOL
 # Create Prisma service
 cat > src/prisma/prisma.service.ts <<EOL
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from '../prisma/generated/client';
+import { PrismaClient } from '../../prisma/generated/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   async onModuleInit() {
-    await this.\$connect();
+    await this.$connect();
   }
 
   async onModuleDestroy() {
-    await this.\$disconnect();
+    await this.$disconnect();
   }
 }
 EOL
@@ -146,24 +149,12 @@ export const auth = betterAuth({
 });
 EOL
 
-# Create Auth Module
-cat > src/auth/auth.module.ts <<EOL
-import { Module } from '@nestjs/common';
-import { AuthModule as BetterAuthModule } from '@thallesp/nestjs-better-auth';
-import { auth } from '../auth';
-
-@Module({
-  imports: [BetterAuthModule.forRoot({ auth })],
-})
-export class AuthModule {}
-EOL
-
 # Update app.module.ts to import AuthModule and ConfigModule
 cat > src/app.module.ts <<EOL
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
-import { PrismaService } from './prisma.service';
+import { PrismaService } from './prisma/prisma.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { auth } from './auth';
