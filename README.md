@@ -29,11 +29,18 @@ Two convenience scripts to quickly scaffold new projects with common dependencie
    # Move to a directory in your PATH
    sudo mv new-next.sh /usr/local/bin/new-next
    sudo mv new-nest.sh /usr/local/bin/new-nest
-   
+
    # Now you can run them from anywhere
    new-next my-nextjs-app
    new-nest my-nestjs-app
    ```
+
+> [!TIP]
+> After running chmod, I prefer to use the symlink way:
+> `ln -s ~/Projects/new/new-next.sh ~/.local/bin/nnx`
+> `ln -s ~/Projects/new/new-nest.sh ~/.local/bin/nns`
+> Then I can use like `nnx awesome-next-project`
+> or `nns awesome-nest-project`
 
 ## Usage
 
@@ -178,7 +185,6 @@ After the script completes, you're almost ready to go! You just need to:
    ```
 
 2. **Update environment variables** (if needed)
-
    - Modify `.env` for your specific setup
    - Add OpenAI API key if using AI features
    - Update database credentials if not using default
@@ -387,7 +393,6 @@ After the script completes, you need to:
    ```
 
 2. **Update environment variables** (if needed)
-
    - Modify `.env` for your specific setup
    - Update database credentials if not using default
 
