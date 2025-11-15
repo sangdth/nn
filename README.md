@@ -37,9 +37,13 @@ Two convenience scripts to quickly scaffold new projects with common dependencie
 
 > [!TIP]
 > After running chmod, I prefer to use the symlink way:
+>
 > `ln -s ~/Projects/new/new-next.sh ~/.local/bin/nnx`
+>
 > `ln -s ~/Projects/new/new-nest.sh ~/.local/bin/nns`
+>
 > Then I can use like `nnx awesome-next-project`
+>
 > or `nns awesome-nest-project`
 
 ## Usage
